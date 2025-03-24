@@ -129,17 +129,18 @@ func main() {
 	fmt.Printf("H7xC4: %X\n", x1)
 	res1 = gfAdd(res1, x1)
 
-	fmt.Printf("T: %X\n", res1)
+	fmt.Printf("H3xC0+H4xC1+H5xC2+H6xC3+H7xC4: %X\n", res1)
 	//----------------------------------------------------
 	res2 := multiplicationGF128(H[8], lengths)
-	fmt.Printf("Len что-то там, уже лень нормально писать сам поймёшь: %X\n", res2)
+	fmt.Printf("H8xLenAC: %X\n", res2)
 	//----------------------------------------------------
 	res3 := gfAdd(gfAdd(res, res1), res2)
-	fmt.Printf("O+T+F: %X\n", res3)
+	fmt.Printf("result: %X\n", res3)
 	//----------------------------------------------------
-	result := [16]byte{0xFD, 0x47, 0x5B, 0xCA, 0x28, 0x79, 0x55, 0x9B, 0x79, 0xF1, 0xF3, 0x57, 0xF2, 0xC3, 0x6E, 0x28}
-	r := KuznEncrypt.Encrypt(result, K)
-	fmt.Printf("R: %X\n", r)
+	var data [16]byte
+	copy(data[:], res3[:])
+	r := KuznEncrypt.Encrypt(data, K)
+	fmt.Printf("T: %X\n", r)
 
 	//result := [16]byte{0xFD, 0x47, 0x5B, 0xCA, 0x28, 0x79, 0x55, 0x9B, 0x79, 0xF1, 0xF3, 0x57, 0xF2, 0xC3, 0x6E, 0x28}
 	//a1 := [2]uint64{0x8DB187D653830EA4, 0xBC446476952C300B}
